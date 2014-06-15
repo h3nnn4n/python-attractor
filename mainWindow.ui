@@ -505,7 +505,7 @@
        <string>Green</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="ttxBoxRed">
+     <widget class="QLineEdit" name="txtBoxRed">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -568,17 +568,12 @@
       </property>
       <item>
        <property name="text">
-        <string>HUE shift</string>
+        <string extracomment="Shifts thru the color spectreby changing the HUE.">HUE shift</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>2color grad</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>From file</string>
+        <string extracomment="Goes to one color to another.">2color grad</string>
        </property>
       </item>
      </widget>
@@ -712,7 +707,7 @@
   <tabstop>txtBoxCC</tabstop>
   <tabstop>txtBoxD</tabstop>
   <tabstop>txtBoxDD</tabstop>
-  <tabstop>ttxBoxRed</tabstop>
+  <tabstop>txtBoxRed</tabstop>
   <tabstop>txtBoxGreen</tabstop>
   <tabstop>txtBoxBlue</tabstop>
   <tabstop>txtBoxRed2</tabstop>

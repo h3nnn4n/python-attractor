@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainWindow.ui'
 #
-# Created: Wed Jun  4 22:21:45 2014
+# Created: Thu Jun  5 20:05:11 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -148,9 +148,9 @@ class Ui_MainWindow(object):
         self.label_9 = QtGui.QLabel(self.frameColor)
         self.label_9.setGeometry(QtCore.QRect(100, 50, 31, 16))
         self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.ttxBoxRed = QtGui.QLineEdit(self.frameColor)
-        self.ttxBoxRed.setGeometry(QtCore.QRect(40, 70, 50, 22))
-        self.ttxBoxRed.setObjectName(_fromUtf8("ttxBoxRed"))
+        self.txtBoxRed = QtGui.QLineEdit(self.frameColor)
+        self.txtBoxRed.setGeometry(QtCore.QRect(40, 70, 50, 22))
+        self.txtBoxRed.setObjectName(_fromUtf8("txtBoxRed"))
         self.label_10 = QtGui.QLabel(self.frameColor)
         self.label_10.setGeometry(QtCore.QRect(150, 50, 31, 16))
         self.label_10.setObjectName(_fromUtf8("label_10"))
@@ -163,7 +163,6 @@ class Ui_MainWindow(object):
         self.comboBox = QtGui.QComboBox(self.frameColor)
         self.comboBox.setGeometry(QtCore.QRect(100, 10, 91, 24))
         self.comboBox.setObjectName(_fromUtf8("comboBox"))
-        self.comboBox.addItem(_fromUtf8(""))
         self.comboBox.addItem(_fromUtf8(""))
         self.comboBox.addItem(_fromUtf8(""))
         self.label_5 = QtGui.QLabel(self.frameColor)
@@ -215,8 +214,8 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.txtBoxC, self.txtBoxCC)
         MainWindow.setTabOrder(self.txtBoxCC, self.txtBoxD)
         MainWindow.setTabOrder(self.txtBoxD, self.txtBoxDD)
-        MainWindow.setTabOrder(self.txtBoxDD, self.ttxBoxRed)
-        MainWindow.setTabOrder(self.ttxBoxRed, self.txtBoxGreen)
+        MainWindow.setTabOrder(self.txtBoxDD, self.txtBoxRed)
+        MainWindow.setTabOrder(self.txtBoxRed, self.txtBoxGreen)
         MainWindow.setTabOrder(self.txtBoxGreen, self.txtBoxBlue)
         MainWindow.setTabOrder(self.txtBoxBlue, self.txtBoxRed2)
         MainWindow.setTabOrder(self.txtBoxRed2, self.txtBoxGreen2)
@@ -266,13 +265,12 @@ class Ui_MainWindow(object):
         self.txtBoxBlue2.setText(_translate("MainWindow", "200", None))
         self.txtBoxRed2.setText(_translate("MainWindow", "255", None))
         self.label_9.setText(_translate("MainWindow", "Green", None))
-        self.ttxBoxRed.setText(_translate("MainWindow", "0", None))
+        self.txtBoxRed.setText(_translate("MainWindow", "0", None))
         self.label_10.setText(_translate("MainWindow", "Blue", None))
         self.label_7.setText(_translate("MainWindow", "To:", None))
         self.txtBoxGreen2.setText(_translate("MainWindow", "125", None))
         self.comboBox.setItemText(0, _translate("MainWindow", "HUE shift", None))
         self.comboBox.setItemText(1, _translate("MainWindow", "2color grad", None))
-        self.comboBox.setItemText(2, _translate("MainWindow", "From file", None))
         self.label_5.setText(_translate("MainWindow", "Coloring mode:", None))
         self.pushButton.setText(_translate("MainWindow", "Useless big button", None))
         self.buttonRender.setText(_translate("MainWindow", "Render", None))

@@ -15,11 +15,25 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.close()
 
     def invertColor(self,col):
-        col.red=255-col.red
-        col.green=255-col.green
-        col.blue=255-col.blue
+        col.red=    255-col.red
+        col.green=  255-col.green
+        col.blue=   255-col.blue
         return col
 
+    def get2ColorPal(self,p,color1,color2):
+        color=_color(0,0,0)
+
+        color.red=color1.red+p*(color2.red-color1.red)
+        color.green=color1.green+p*(color2.green-color1.green)
+        color.blue=color1.blue+p*(color2.blue-color1.blue)
+
+        color.normalize()
+        color.invert()
+
+        #print(str(col.red)+' '+str(col.green)+' '+str(col.blue)+'\n')
+
+        return color
+    
     def getHue(self,h):
             col=_color(0,0,0)
             h*=6.0
@@ -50,9 +64,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 col.green=0.0
                 col.blue=1.0-hf
 
-            col.red=1-col.red
-            col.green=1-col.green
-            col.blue=1-col.blue
+            #col.invert()
 
             return col
 
@@ -66,6 +78,26 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         cmax=float(self.txtBoxCC.displayText())
         dmin=float(self.txtBoxD.displayText())
         dmax=float(self.txtBoxDD.displayText())
+
+        # Colors
+        red1=float(self.txtBoxRed.displayText())
+        red2=float(self.txtBoxRed2.displayText())
+        green1=float(self.txtBoxGreen.displayText())
+        green2=float(self.txtBoxGreen2.displayText())
+        blue1=float(self.txtBoxBlue.displayText())
+        blue2=float(self.txtBoxBlue2.displayText())
+        color1=_color(red1,green1,blue1)
+        color2=_color(red2,green2,blue2)
+        colorMode=str(self.comboBox.currentText())
+        
+        if colorMode=="HUE shift":
+            colorMode=1
+            print("Using HUE Shift")
+        if colorMode=="2color grad":
+            colorMode=2
+            print("Using 2Color Grad")
+            print(str(int(red1))+','+str(int(green1))+','+str(int(blue1)))
+            print(str(int(red2))+','+str(int(green2))+','+str(int(blue2)))
     
         # Image parameters
         screenx=int(self.txtBoxWidth.displayText())
@@ -86,6 +118,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         xlow=xhigh=0
         ylow=yhigh=0
+        
+        debug=open("debug.dat","w")
 
         # Alocates the bitmap
         bitmap=[]
@@ -96,17 +130,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             if l == 0:
                 todoFrames=frames*0.10
                 todoIters=iters*0.10
+                print("Evaluating borders")
             else:
                 todoFrames=frames
                 todoIters=iters*0.10
-
-            print(l)
+                print("Rendering")
 
             for i in range(int(todoFrames)):                
                 p=i/todoFrames
                 
                 if l==1:
-                    col=self.getHue(p)
+                    if colorMode==1:
+                        col=self.getHue(p)
+                    if colorMode==2:
+                        col=self.get2ColorPal(p,color1,color2)
+                        debug.write(str(col.red)+' '+str(col.green)+' '+str(col.blue)+'\n')
+
                     if (p*100)%2==0:
                         self.progressBar.setValue(int(p*100))
                 
@@ -139,8 +178,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                             yhigh=y
 
                     if l==1:
-                        xi=int((x-minx)*int(screenx/(maxx-minx)))
-                        yi=int((y-miny)*int(screeny/(maxy-miny)))
+                        xi=(int(x-minx)*int(screenx/(maxx-minx)))
+                        yi=(int(y-miny)*int(screeny/(maxy-miny)))
+
+
 
                         if(xi>=0 and xi<screenx and yi>=0 and yi<screeny):
                             bitmap[yi*screenx+xi].red+=col.red
@@ -174,7 +215,15 @@ class _color():
         self.green=green
         self.blue=blue
 
+    def normalize(self):
+        self.red=self.red/255
+        self.green=self.green/255
+        self.blue=self.blue/255
 
+    def invert(self):
+        self.red=1-self.red
+        self.green=1-self.green
+        self.blue=1-self.blue
 
 if __name__ == "__main__":
     app=QtGui.QApplication(sys.argv)
