@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainWindow.ui'
 #
-# Created: Thu Jun  5 20:05:11 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Wed Jun 18 17:09:32 2014
+#      by: PyQt4 UI code generator 4.11
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -184,7 +184,7 @@ class Ui_MainWindow(object):
         self.buttonClose.setObjectName(_fromUtf8("buttonClose"))
         self.progressBar = QtGui.QProgressBar(self.frameMaster)
         self.progressBar.setGeometry(QtCore.QRect(10, 240, 531, 23))
-        self.progressBar.setProperty("value", 50)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName(_fromUtf8("progressBar"))
         self.textEdit = QtGui.QTextEdit(self.frameMaster)
         self.textEdit.setEnabled(False)
@@ -192,7 +192,7 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 551, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 551, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuQuit = QtGui.QMenu(self.menubar)
         self.menuQuit.setObjectName(_fromUtf8("menuQuit"))
@@ -232,7 +232,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.txtBoxSens.setText(_translate("MainWindow", "0.225", None))
+        self.txtBoxSens.setText(_translate("MainWindow", "0.025", None))
         self.txtBoxFrames.setText(_translate("MainWindow", "1000", None))
         self.txtBoxHeight.setText(_translate("MainWindow", "600", None))
         self.label_17.setText(_translate("MainWindow", "Frames:", None))
