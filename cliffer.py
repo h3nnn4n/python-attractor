@@ -30,7 +30,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         color.normalize()
         color.invert()
 
-        #print(str(col.red)+' '+str(col.green)+' '+str(col.blue)+'\n')
+        #print(str(color.red)+' '+str(color.green)+' '+str(color.blue)+'\n')
 
         return color
     
@@ -132,22 +132,22 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                 todoIters=iters*0.10
                 print("Evaluating borders")
             else:
-                todoFrames=frames
-                todoIters=iters*0.10
+                todoFrames=frames*1.0
+                todoIters=iters*1.0
                 print("Rendering")
 
             for i in range(int(todoFrames)):                
-                p=i/todoFrames
+                p=i/(todoFrames)
+                
+                if (p*100)%2==0:
+                    self.progressBar.setValue(int(p*100))
                 
                 if l==1:
                     if colorMode==1:
                         col=self.getHue(p)
                     if colorMode==2:
                         col=self.get2ColorPal(p,color1,color2)
-                        debug.write(str(col.red)+' '+str(col.green)+' '+str(col.blue)+'\n')
-
-                    if (p*100)%2==0:
-                        self.progressBar.setValue(int(p*100))
+                        debug.write(str(col.red)+' '+str(col.green)+' '+str(col.blue)+' p='+str(p)+'\n')
                 
                 a=cos(mina+p*(maxa-mina))*2
                 b=cos(minb+p*(maxb-minb))*2
@@ -178,19 +178,23 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
                             yhigh=y
 
                     if l==1:
-                        xi=(int(x-minx)*int(screenx/(maxx-minx)))
-                        yi=(int(y-miny)*int(screeny/(maxy-miny)))
+                        xi=int((x-minx)*(screenx/(maxx-minx)))
+                        yi=int((y-miny)*(screeny/(maxy-miny)))
 
-
+                        debug.write(str(xi)+' '+str(yi))
 
                         if(xi>=0 and xi<screenx and yi>=0 and yi<screeny):
+                            debug.write(' '+str(yi*screenx+xi)+'\n')
                             bitmap[yi*screenx+xi].red+=col.red
                             bitmap[yi*screenx+xi].green+=col.green
                             bitmap[yi*screenx+xi].blue+=col.blue
-            minx=xlow
-            maxx=xhigh
-            miny=ylow
-            maxy=yhigh
+
+            minx=xlow   +xlow   *0.1
+            maxx=xhigh  +xhigh  *0.1
+            miny=ylow   +ylow   *0.1
+            maxy=yhigh  +yhigh  *0.1
+
+        print('Writing to disk!')
 
         img=open("file.ppm","w")
 
@@ -202,12 +206,14 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             col.green= ((1.0-exp(-sens*col.green)) *255.0)
             col.blue=  ((1.0-exp(-sens*col.blue))  *255.0)
 
-            col=self.invertColor(col)
+            #col=self.invertColor(col)
 
             img.write(str(int(col.red)) + ' ' + str(int(col.green)) + ' ' + str(int(col.blue)) + ' ')
             
         img.close()
         self.progressBar.setValue(100)
+
+        print('Done!')
 
 class _color():
     def __init__(self,red,green,blue):
